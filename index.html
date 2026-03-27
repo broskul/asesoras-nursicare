@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programa de Asesoras Nursicare | PolyMem Chile</title>
+  <meta name="description" content="Programa de Asesoras Nursicare. Educación clínica, muestras de producto y herramientas para matronas y asesoras de lactancia en Chile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════
+       DESIGN TOKENS — PolyMem Brand (polymem.cl)
+       ═══════════════════════════════════════════ */
+    :root {
+      --pm-dark:          #1A1A1A;
+      --pm-dark-deep:     #111111;
+      --pm-dark-light:    #2D2D2D;
+      --pm-dark-muted:    #3A3A3A;
+
+      --pm-red:           #D33535;
+      --pm-red-dark:      #B82E2E;
+      --pm-red-light:     #FCEAEA;
+
+      --nc-pink:           #E2356C;
+      --nc-pink-dark:      #C42B5A;
+      --nc-pink-light:     #FDE8F0;
+      --nc-pink-soft:      #FDF2F6;
+      --nc-blush:          #FEF7F9;
+
+      --text-dark:        #1A1A1A;
+      --text-body:        #4A5568;
+      --text-muted:       #718096;
+      --text-light:       #A0AEC0;
+      --white:            #FFFFFF;
+      --bg-page:          #FFFFFF;
+      --bg-soft:          #F5F5F5;
+      --border:           rgba(26,26,26,0.08);
+      --border-med:       rgba(26,26,26,0.14);
+
+      --shadow-sm:  0 1px 3px rgba(26,26,26,0.06);
+      --shadow-md:  0 4px 20px rgba(26,26,26,0.08);
+      --shadow-lg:  0 12px 40px rgba(26,26,26,0.1);
+      --shadow-xl:  0 24px 60px rgba(26,26,26,0.12);
+
+      --r-sm: 6px;
+      --r-md: 12px;
+      --r-lg: 18px;
+      --r-xl: 24px;
+      --r-full: 999px;
+
+      --max-w: 1160px;
+      --header-h: 72px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+       ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-body);
+      background: var(--bg-page);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; transition: color 0.2s; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-w));
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY
+       ═══════════════════════════════════════════ */
+    h1, h2, h3, h4 {
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin: 0 0 16px;
+      font-weight: 700;
+    }
+
+    h1 { font-size: clamp(1.9rem, 4.5vw, 3.4rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+    h3 { font-size: 1.05rem; font-weight: 600; }
+    p  { margin: 0 0 14px; font-size: 0.97rem; }
+
+    .text-muted { color: var(--text-muted); }
+
+    /* ═══════════════════════════════════════════
+       WAVE DIVIDER
+       ═══════════════════════════════════════════ */
+    .wave-divider {
+      width: 100%;
+      line-height: 0;
+      overflow: hidden;
+    }
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 60px;
+    }
+    .wave-divider.flip svg { transform: scaleY(-1); }
+
+    /* ═══════════════════════════════════════════
+       EYEBROW TAG
+       ═══════════════════════════════════════════ */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--nc-pink-dark);
+      background: var(--nc-pink-light);
+      padding: 6px 16px;
+      border-radius: var(--r-full);
+      margin-bottom: 18px;
+    }
+
+    /* ═══════════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--r-full);
+      font-weight: 600;
+      font-size: 0.93rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--nc-pink);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(226,53,108,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--nc-pink-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(226,53,108,0.35);
+    }
+
+    .btn-pink {
+      background: var(--nc-pink);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(226,53,108,0.3);
+    }
+    .btn-pink:hover {
+      background: var(--nc-pink-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--pm-dark);
+      border: 2px solid var(--border-med);
+    }
+    .btn-outline:hover {
+      border-color: var(--pm-dark);
+      background: var(--bg-soft);
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--pm-dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+    /* ═══════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════ */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--border-med);
+    }
+    .card-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--r-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .card-icon.navy { background: rgba(26,26,26,0.07); color: var(--pm-dark); }
+    .card-icon.pink  { background: var(--nc-pink-light); color: var(--nc-pink-dark); }
+    .card-icon.rose { background: var(--nc-pink-light); color: var(--nc-pink-dark); }
+    .card p:last-child { margin-bottom: 0; }
+
+    /* ═══════════════════════════════════════════
+       CHECK LIST
+       ═══════════════════════════════════════════ */
+    .check-list { list-style: none; display: grid; gap: 12px; margin: 18px 0 0; }
+    .check-list li {
+      position: relative;
+      padding-left: 30px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .check-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0; top: 0;
+      font-weight: 800;
+      color: var(--nc-pink);
+      font-size: 0.95rem;
+    }
+
+    .check-list-white li { color: rgba(255,255,255,0.9); }
+    .check-list-white li::before { color: var(--white); }
+
+    /* ═══════════════════════════════════════════
+       SOFT PANEL
+       ═══════════════════════════════════════════ */
+    .soft-panel {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 34px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTIONS
+       ═══════════════════════════════════════════ */
+    .section { padding: 80px 0; }
+
+    .section-pink {
+      background: var(--nc-pink);
+      color: var(--white);
+      position: relative;
+    }
+    .section-pink h2,
+    .section-pink h3,
+    .section-pink p  { color: var(--white); }
+    .section-pink p  { color: rgba(255,255,255,0.85); }
+    .section-pink .eyebrow {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ═══════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      height: var(--header-h);
+    }
+    .site-header-inner {
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .brand-sep {
+      width: 1px;
+      height: 28px;
+      background: var(--border-med);
+      flex-shrink: 0;
+    }
+
+    .nav { display: flex; align-items: center; gap: 6px; }
+    .nav a {
+      padding: 8px 14px;
+      border-radius: var(--r-full);
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--text-body);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav a:hover { color: var(--pm-dark); background: var(--bg-soft); }
+    .nav .nav-cta {
+      background: var(--nc-pink);
+      color: var(--white) !important;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .nav .nav-cta:hover { background: var(--nc-pink-dark); }
+
+    .mobile-toggle {
+      display: none;
+      background: none; border: none;
+      cursor: pointer;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      border-radius: var(--r-sm);
+      flex-shrink: 0;
+    }
+    .mobile-toggle:hover { background: var(--bg-soft); }
+    .mobile-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--pm-dark); border-radius: 2px;
+      position: relative;
+    }
+    .mobile-toggle span::before, .mobile-toggle span::after {
+      content: ''; position: absolute;
+      width: 100%; height: 2px;
+      background: var(--pm-dark); border-radius: 2px;
+      left: 0; transition: 0.3s;
+    }
+    .mobile-toggle span::before { top: -7px; }
+    .mobile-toggle span::after  { top: 7px; }
+
+    /* ═══════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════ */
+    .hero { padding: 48px 0 0; }
+
+    .hero-card {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      min-height: 540px;
+    }
+    .hero-copy {
+      padding: 56px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-copy h1 span { color: var(--nc-pink-dark); }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--nc-pink-dark);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .hero-features {
+      display: flex; flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-top: 6px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .hero-features span {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .hero-features span::before {
+      content: ''; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--nc-pink);
+      flex-shrink: 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center; gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--r-full);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--pm-dark);
+      margin-top: 20px;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      background: linear-gradient(135deg, var(--bg-soft), var(--nc-blush));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: url('https://static.wixstatic.com/media/1e1f14_caf972d2e1504faaa6f70bab47090bdf~mv2.png');
+      background-position: center;
+      background-size: cover;
+    }
+
+    /* ═══════════════════════════════════════════
+       GRIDS
+       ═══════════════════════════════════════════ */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+
+    /* ═══════════════════════════════════════════
+       STEPS
+       ═══════════════════════════════════════════ */
+    .steps { display: grid; gap: 14px; margin-top: 24px; }
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 16px; align-items: start;
+      padding: 20px;
+      border-radius: var(--r-lg);
+      background: var(--white);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    .step:hover { box-shadow: var(--shadow-md); }
+    .step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--nc-pink);
+      color: var(--white);
+      font-weight: 700; font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(226,53,108,0.25);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       FORM
+       ═══════════════════════════════════════════ */
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 30px; align-items: start;
+    }
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 38px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px; margin-top: 22px;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 1.5px solid rgba(26,26,26,0.15);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      font: inherit; font-size: 0.93rem;
+      color: var(--text-body);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--pm-dark);
+      box-shadow: 0 0 0 3px rgba(26,26,26,0.1);
+    }
+    input.error, select.error, textarea.error {
+      border-color: var(--nc-pink);
+      box-shadow: 0 0 0 3px rgba(226,53,108,0.1);
+    }
+    textarea { min-height: 100px; resize: vertical; }
+
+    /* Select arrow */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    .checkbox-row {
+      display: flex; gap: 12px; align-items: flex-start; margin-top: 4px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 18px; height: 18px; min-width: 18px;
+      margin-top: 3px; accent-color: var(--nc-pink); flex-shrink: 0;
+      -webkit-appearance: auto;
+    }
+    .checkbox-row label { font-weight: 500; font-size: 0.88rem; color: var(--text-body); }
+
+    .hint { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+    .submit-row {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; margin-top: 22px;
+    }
+    .submit-note { font-size: 0.85rem; color: var(--text-muted); }
+
+    .form-status {
+      margin-top: 16px; padding: 14px 16px;
+      border-radius: var(--r-md);
+      font-weight: 600; font-size: 0.9rem;
+      display: none;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(46,125,50,0.08);
+      color: #2E7D32; border: 1px solid rgba(46,125,50,0.18);
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(211,47,47,0.07);
+      color: #B71C1C; border: 1px solid rgba(211,47,47,0.15);
+    }
+
+    /* ═══════════════════════════════════════════
+       CTA BOX
+       ═══════════════════════════════════════════ */
+    .cta-box {
+      border-radius: var(--r-xl);
+      background: linear-gradient(135deg, var(--nc-pink) 0%, var(--nc-pink-dark) 100%);
+      color: var(--white);
+      padding: 60px;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .cta-box h2, .cta-box p { color: var(--white); position: relative; z-index: 1; }
+    .cta-box p { color: rgba(255,255,255,0.85); }
+    .cta-box .eyebrow {
+      background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);
+      position: relative; z-index: 1;
+    }
+    .cta-box .btn-row { position: relative; z-index: 1; }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ */
+    .footer {
+      background: var(--pm-dark-deep);
+      color: rgba(255,255,255,0.6);
+      padding: 36px 0 44px;
+      font-size: 0.9rem;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .footer-col strong {
+      display: block;
+      color: var(--white);
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .footer-col a { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .footer-col a:hover { text-decoration: underline; color: #FFF; }
+    .footer-logos {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    }
+    .footer-logos img {
+      height: 42px; width: auto; object-fit: contain;
+      background: var(--white); border-radius: var(--r-full);
+      padding: 5px 10px;
+    }
+    .footer-tagline {
+      width: 100%;
+      text-align: center;
+      padding-top: 24px;
+      margin-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ═══════════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════════ */
+    .animate-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-copy  { animation: fadeUp 0.6s ease forwards; }
+    .hero-image-wrap { animation: fadeUp 0.6s 0.1s ease forwards; opacity: 0; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — 1080px (tablet paisaje)
+       ═══════════════════════════════════════════ */
+    @media (max-width: 1080px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-image-wrap { min-height: 360px; order: -1; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .form-layout { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — 768px (tablet)
+       ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .mobile-toggle { display: flex; }
+
+      .section { padding: 56px 0; }
+
+      .hero { padding: 24px 0 0; }
+      .hero-copy { padding: 32px 24px; }
+      .hero-image-wrap { min-height: 260px; }
+      .hero-badge { font-size: 0.8rem; padding: 8px 14px; }
+
+      .grid-4 { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 24px 20px; }
+      .soft-panel { padding: 24px 20px; }
+      .cta-box { padding: 36px 28px; }
+
+      .footer-inner { flex-direction: column; gap: 28px; }
+      .footer-logos { justify-content: flex-start; }
+
+      .step { grid-template-columns: 46px 1fr; gap: 12px; padding: 16px; }
+
+      .btn { padding: 13px 22px; font-size: 0.9rem; }
+      .btn-row { gap: 10px; margin-top: 22px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — 480px (móvil)
+       ═══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --header-h: 64px; }
+
+      .container { width: calc(100% - 32px); }
+
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.3rem; }
+
+      .section { padding: 44px 0; }
+
+      .hero { padding: 16px 0 0; }
+      .hero-copy { padding: 28px 20px; }
+      .hero-image-wrap { min-height: 220px; }
+
+      .hero-features { gap: 4px 12px; font-size: 0.82rem; }
+      .hero-badge { font-size: 0.78rem; padding: 8px 12px; gap: 6px; }
+
+      .grid-4 { grid-template-columns: 1fr; gap: 14px; }
+      .card { padding: 22px 18px; }
+
+      .cta-box { padding: 28px 20px; border-radius: var(--r-lg); }
+      .cta-box::before { display: none; }
+
+      .soft-panel { padding: 20px 16px; border-radius: var(--r-lg); }
+      .form-card {
+        padding: 20px 16px;
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-md);
+      }
+
+      .submit-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .btn-pink { width: 100%; justify-content: center; }
+
+      .step { padding: 14px; gap: 10px; }
+      .step-num { width: 38px; height: 38px; font-size: 0.9rem; }
+
+      .wave-divider svg { height: 40px; }
+
+      .footer { padding: 28px 0 36px; font-size: 0.85rem; }
+      .footer-logos img { height: 36px; }
+      .footer-tagline { font-size: 0.8rem; }
+
+      .eyebrow { font-size: 0.7rem; padding: 5px 14px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       MOBILE NAV
+       ═══════════════════════════════════════════ */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(18,30,51,0.5);
+      backdrop-filter: blur(4px);
+    }
+    .mobile-nav.open { display: block; }
+    .mobile-nav-inner {
+      position: absolute; right: 0; top: 0;
+      width: min(300px, 85vw); height: 100%;
+      background: var(--white); box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+      padding: 72px 28px 40px;
+      display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto;
+    }
+    .mobile-nav-inner a {
+      display: block; padding: 14px 0;
+      font-size: 1rem; font-weight: 500;
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav-close {
+      position: absolute; top: 18px; right: 18px;
+      background: none; border: none; font-size: 1.4rem;
+      cursor: pointer; color: var(--text-body);
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--r-sm);
+    }
+    .mobile-nav-close:hover { background: var(--bg-soft); }
+
+    /* ═══════════════════════════════════════════
+       TOUCH / HOVER — desactivar hover en móvil
+       ═══════════════════════════════════════════ */
+    @media (hover: none) {
+      .card:hover,
+      .btn-primary:hover,
+      .btn-pink:hover,
+      .btn-outline:hover,
+      .btn-white:hover,
+      .step:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div class="brand-group">
+        <a href="https://www.polymem.cl/" aria-label="PolyMem Chile">
+          <img src="https://static.wixstatic.com/media/3ee3fa_1ef60fcf6a9a4272a871b380f4f89f49~mv2.png"
+               width="70" alt="PolyMem" class="brand-logo" loading="eager" />
+        </a>
+        <div class="brand-sep"></div>
+        <a href="#inicio" aria-label="Sanery">
+          <img src="https://static.wixstatic.com/media/1e1f14_5e859ceffb8a43a0b839e97aaf980586~mv2.png"
+               width="70" alt="Sanery" class="brand-logo" loading="eager" />
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#programa">Programa</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#inscripcion" class="nav-cta">Inscríbete</a>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div id="mobileNav" class="mobile-nav" role="dialog" aria-label="Menú de navegación">
+    <div class="mobile-nav-inner">
+      <button class="mobile-nav-close" aria-label="Cerrar menú" id="menuClose">✕</button>
+      <a href="#programa">Programa</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#inscripcion">Inscripción</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero" id="inicio">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <span class="eyebrow">Programa profesional</span>
+              <h1>Programa de <span>Asesoras Nursicare</span></h1>
+              <p class="hero-subtitle">Apoyo profesional para el cuidado del pezón durante la lactancia.</p>
+              <p>Acompañamos a matronas y asesoras de lactancia con información, herramientas y acceso a soluciones avanzadas para apoyar el bienestar de las madres y sus bebés.</p>
+              <div class="hero-features">
+                <span>Educación clínica</span>
+                <span>Muestras de producto</span>
+                <span>Comunidad profesional</span>
+                <span>Descuentos para madres</span>
+              </div>
+              <div class="btn-row">
+                <a class="btn btn-primary" href="#inscripcion">Quiero inscribirme</a>
+                <a class="btn btn-outline" href="#programa">Conocer el programa</a>
+              </div>
+              <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                En colaboración con PolyMem y Sanery Advanced Recovery
+              </div>
+            </div>
+            <div class="hero-image-wrap" role="img" aria-label="Nursicare — cuidado del pezón durante la lactancia"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wave divider -->
+    <div class="wave-divider" style="margin-top:48px;" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,35 1440,30 L1440,60 L0,60 Z" fill="#E2356C"/>
+      </svg>
+    </div>
+
+    <!-- ═══════════ PROGRAMA ═══════════ -->
+    <section class="section section-pink" id="programa">
+      <div class="container">
+        <span class="eyebrow">Sobre el programa</span>
+        <div class="grid-2">
+          <div class="animate-in">
+            <h2>Una iniciativa pensada para profesionales que acompañan a madres lactantes</h2>
+            <p>El Programa de Asesoras Nursicare está orientado a matronas, asesoras de lactancia y otros profesionales de la salud vinculados al acompañamiento durante la lactancia.</p>
+            <p>Su objetivo es facilitar el acceso a información clínica, herramientas educativas y muestras de producto, para que las profesionales puedan conocer Nursicare y orientar adecuadamente a las madres cuando corresponda.</p>
+            <ul class="check-list check-list-white">
+              <li>Difusión de información actualizada sobre cuidado del pezón.</li>
+              <li>Acceso profesional a muestras y material técnico.</li>
+              <li>Apoyo a madres mediante descuentos en tienda online.</li>
+              <li>Espacio de aprendizaje e intercambio entre profesionales.</li>
+            </ul>
+          </div>
+
+          <div class="animate-in" style="transition-delay:0.1s; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--r-xl); padding:34px;">
+            <h3>¿A quién está dirigido?</h3>
+            <p>El programa está diseñado para profesionales que ejercen en Chile y participan activamente en el acompañamiento de madres durante el proceso de lactancia.</p>
+            <ul class="check-list check-list-white">
+              <li>Matronas y matrones</li>
+              <li>Asesoras y asesores de lactancia</li>
+              <li>Profesionales de salud vinculados a lactancia materna</li>
+              <li>Con registro o certificación profesional vigente</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wave divider -->
+    <div class="wave-divider flip" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,35 1440,30 L1440,60 L0,60 Z" fill="#E2356C"/>
+      </svg>
+    </div>
+
+    <!-- ═══════════ BENEFICIOS ═══════════ -->
+    <section class="section" id="beneficios">
+      <div class="container">
+        <div class="animate-in" style="max-width:660px; margin-bottom:36px;">
+          <span class="eyebrow">Beneficios</span>
+          <h2>Herramientas concretas para educar, acompañar y apoyar</h2>
+          <p class="text-muted">El programa entrega recursos útiles para que las profesionales conozcan el producto, compartan información con respaldo y ayuden a las madres a acceder a una solución adecuada.</p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card animate-in">
+            <div class="card-icon navy" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <h3>Muestras para conocimiento del producto</h3>
+            <p>Recepción de muestras de Nursicare para conocer su funcionamiento y características.</p>
+          </article>
+
+          <article class="card animate-in" style="transition-delay:0.08s">
+            <div class="card-icon rose" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </div>
+            <h3>Códigos de descuento para madres</h3>
+            <p>Cupones para compartir con pacientes, permitiendo acceder a un precio preferencial en la tienda online.</p>
+          </article>
+
+          <article class="card animate-in" style="transition-delay:0.16s">
+            <div class="card-icon pink" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3>Educación continua</h3>
+            <p>Acceso a webinars, masterclass y material actualizado sobre lactancia y cuidado de la piel.</p>
+          </article>
+
+          <article class="card animate-in" style="transition-delay:0.24s">
+            <div class="card-icon navy" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Comunidad profesional</h3>
+            <p>Participación en una red de profesionales interesadas en mejorar el cuidado de madres y bebés.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wave divider -->
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,55 480,5 720,30 C960,55 1200,10 1440,25 L1440,60 L0,60 Z" fill="#E2356C"/>
+      </svg>
+    </div>
+
+    <!-- ═══════════ CÓMO FUNCIONA ═══════════ -->
+    <section class="section section-pink" id="como-funciona">
+      <div class="container">
+        <span class="eyebrow">Cómo funciona</span>
+        <div class="grid-2">
+          <div class="animate-in" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:var(--r-xl); padding:34px;">
+            <h2>Un proceso simple y profesional</h2>
+            <div class="steps">
+              <div class="step" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.08);">
+                <div class="step-num" style="background:var(--white); color:var(--nc-pink);">1</div>
+                <div>
+                  <h3>Registro online</h3>
+                  <p style="color:rgba(255,255,255,0.75);">Completa el formulario de inscripción con tus datos profesionales y de contacto.</p>
+                </div>
+              </div>
+              <div class="step" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.08);">
+                <div class="step-num" style="background:var(--white); color:var(--nc-pink);">2</div>
+                <div>
+                  <h3>Validación</h3>
+                  <p style="color:rgba(255,255,255,0.75);">El equipo del programa revisa la información y valida las credenciales profesionales.</p>
+                </div>
+              </div>
+              <div class="step" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.08);">
+                <div class="step-num" style="background:var(--white); color:var(--nc-pink);">3</div>
+                <div>
+                  <h3>Bienvenida y envío</h3>
+                  <p style="color:rgba(255,255,255,0.75);">Una vez aprobada, recibirás tu correo de bienvenida y el Kit de Inicio Nursicare.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="animate-in" style="transition-delay:0.1s">
+            <h2>Comunicación ética y apoyo basado en evidencia</h2>
+            <p>La participación en el programa no implica obligación de recomendar el producto. El foco está en entregar información responsable, materiales de apoyo y herramientas que fortalezcan el acompañamiento durante la lactancia.</p>
+            <ul class="check-list check-list-white">
+              <li>Sin incentivos económicos directos para la profesional.</li>
+              <li>Muestras con propósito informativo y educativo.</li>
+              <li>Cupones que benefician a las madres, no a la asesora.</li>
+              <li>Comunicación alineada con buenas prácticas en salud.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wave divider -->
+    <div class="wave-divider flip" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,55 480,5 720,30 C960,55 1200,10 1440,25 L1440,60 L0,60 Z" fill="#E2356C"/>
+      </svg>
+    </div>
+
+    <!-- ═══════════ INSCRIPCIÓN ═══════════ -->
+    <section class="section" id="inscripcion" style="background:var(--bg-soft);">
+      <div class="container">
+        <span class="eyebrow">Inscripción</span>
+        <div class="form-layout">
+          <div class="form-card animate-in">
+            <h2>Formulario de inscripción</h2>
+            <p class="text-muted">Completa tus datos para postular al Programa de Asesoras Nursicare. Revisaremos tu información y te contactaremos por correo electrónico.</p>
+
+            <form id="inscripcionForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="nombre">Nombre completo *</label>
+                  <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" autocomplete="name" />
+                </div>
+                <div class="field">
+                  <label for="profesion">Profesión *</label>
+                  <select id="profesion" name="profesion" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Matrona / Matrón">Matrona / Matrón</option>
+                    <option value="Asesora de lactancia">Asesora de lactancia</option>
+                    <option value="Profesional de salud">Profesional de salud</option>
+                    <option value="Otra relacionada">Otra relacionada</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="registro">N° de registro o certificación *</label>
+                  <input type="text" id="registro" name="registro" required placeholder="Ej: 12345" />
+                </div>
+                <div class="field">
+                  <label for="institucion">Institución o lugar de trabajo</label>
+                  <input type="text" id="institucion" name="institucion" placeholder="Hospital, clínica, consulta..." autocomplete="organization" />
+                </div>
+                <div class="field">
+                  <label for="ciudad">Ciudad *</label>
+                  <input type="text" id="ciudad" name="ciudad" required placeholder="Ej: Santiago" autocomplete="address-level2" />
+                </div>
+                <div class="field">
+                  <label for="telefono">Teléfono de contacto *</label>
+                  <input type="tel" id="telefono" name="telefono" required placeholder="+56 9 XXXX XXXX" autocomplete="tel" />
+                </div>
+                <div class="field full">
+                  <label for="email">Correo electrónico *</label>
+                  <input type="email" id="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+                </div>
+                <div class="field full">
+                  <label for="experiencia">Cuéntanos brevemente tu experiencia en acompañamiento de lactancia</label>
+                  <textarea id="experiencia" name="experiencia" placeholder="Años de experiencia, formación, área de trabajo..."></textarea>
+                </div>
+                <div class="field full">
+                  <label for="comentarios">Comentarios adicionales</label>
+                  <textarea id="comentarios" name="comentarios" placeholder="¿Algo más que quieras contarnos?"></textarea>
+                </div>
+                <div class="field full">
+                  <div class="checkbox-row">
+                    <input type="checkbox" id="acepta" name="acepta" required />
+                    <label for="acepta">Declaro que la información entregada es correcta y autorizo el tratamiento de mis datos para fines de evaluación, contacto y gestión del programa. *</label>
+                  </div>
+                  <div class="hint">Los campos marcados con * son obligatorios.</div>
+                </div>
+              </div>
+              <div class="submit-row">
+                <button type="submit" class="btn btn-pink" id="submitBtn">
+                  Enviar inscripción
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+                <span class="submit-note">Tiempo estimado: menos de 2 minutos.</span>
+              </div>
+              <div id="formStatus" class="form-status" role="alert" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div>
+            <div class="soft-panel animate-in" style="transition-delay:0.1s">
+              <h3>¿Qué sucede después?</h3>
+              <ul class="check-list">
+                <li>Recibimos tu solicitud de inscripción.</li>
+                <li>Verificamos tus antecedentes profesionales.</li>
+                <li>Te enviamos un correo de confirmación.</li>
+                <li>Coordinamos el envío del Kit de Inicio Nursicare.</li>
+              </ul>
+            </div>
+            <div class="soft-panel animate-in" style="margin-top:20px; transition-delay:0.18s">
+              <h3>Kit de inicio</h3>
+              <ul class="check-list">
+                <li>Muestra del producto Nursicare.</li>
+                <li>Brochure informativo y material técnico.</li>
+                <li>Códigos de descuento para madres.</li>
+                <li>Acceso a actividades educativas futuras.</li>
+              </ul>
+            </div>
+            <div class="soft-panel animate-in" style="margin-top:20px; transition-delay:0.26s">
+              <h3>Contacto</h3>
+              <p>Si prefieres postular por correo o tienes dudas sobre el programa:</p>
+              <p style="margin:0"><strong><a href="mailto:programa@nursicare.cl" style="color:var(--nc-pink-dark);">programa@nursicare.cl</a></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CTA FINAL ═══════════ -->
+    <section class="section" style="padding-bottom:90px;">
+      <div class="container">
+        <div class="cta-box animate-in">
+          <span class="eyebrow">Únete al programa</span>
+          <h2>Forma parte de una comunidad comprometida con el bienestar de madres y bebés</h2>
+          <p style="max-width:700px;">Si acompañas a madres durante la lactancia y quieres acceder a materiales, muestras y recursos educativos, este programa está pensado para ti.</p>
+          <div class="btn-row">
+            <a class="btn btn-white" href="#inscripcion">Completar formulario</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" id="contacto">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <strong>Programa de Asesoras Nursicare</strong>
+        Coordinado por Windbell, representante de PolyMem,<br/>en colaboración con Sanery.
+      </div>
+      <div class="footer-col">
+        <strong>Contacto</strong>
+        <a href="mailto:programa@nursicare.cl">programa@nursicare.cl</a><br/>
+        <a href="https://www.polymem.cl" target="_blank" rel="noopener noreferrer">www.polymem.cl</a>
+      </div>
+      <div class="footer-logos">
+        <img src="https://static.wixstatic.com/media/3ee3fa_1ef60fcf6a9a4272a871b380f4f89f49~mv2.png" alt="Logo PolyMem" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/1e1f14_5e859ceffb8a43a0b839e97aaf980586~mv2.png" alt="Logo Sanery" loading="lazy" />
+      </div>
+      <div class="footer-tagline">
+        PolyMem® es más curación, menos dolor.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* =============================================
+       MOBILE NAV
+       ============================================= */
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav  = document.getElementById('mobileNav');
+    const menuClose  = document.getElementById('menuClose');
+
+    function openNav() {
+      mobileNav.classList.add('open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeNav() {
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openNav);
+    menuClose.addEventListener('click', closeNav);
+    mobileNav.addEventListener('click', function(e) { if (e.target === this) closeNav(); });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+    // Cerrar con teclado Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeNav();
+    });
+
+    /* =============================================
+       HUBSPOT FORM
+       ============================================= */
+    const HUBSPOT_PORTAL_ID = "50937170";
+    const HUBSPOT_FORM_GUID = "2c344843-c49f-4d19-9824-e1a919db28de";
+    const HUBSPOT_ENDPOINT  = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+
+    const form      = document.getElementById("inscripcionForm");
+    const statusBox = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const SUBMIT_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+    function showStatus(msg, type) {
+      statusBox.className = "form-status " + type;
+      statusBox.textContent = msg;
+    }
+    function clearStatus() {
+      statusBox.className = "form-status";
+      statusBox.textContent = "";
+    }
+    function clearErrors() {
+      form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    }
+
+    function validateForm() {
+      clearErrors();
+      let firstInvalid = null;
+      form.querySelectorAll("[required]").forEach(field => {
+        let fail = false;
+        if (field.type === "checkbox" && !field.checked) fail = true;
+        else if (field.type === "email" && field.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim())) fail = true;
+        else if (field.type !== "checkbox" && !field.value.trim()) fail = true;
+        if (fail) {
+          field.classList.add('error');
+          if (!firstInvalid) firstInvalid = field;
+        }
+      });
+      if (firstInvalid) firstInvalid.focus();
+      return !firstInvalid;
+    }
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      clearStatus();
+      if (!validateForm()) {
+        showStatus("Por favor completa todos los campos obligatorios.", "error");
+        return;
+      }
+
+      const payload = {
+        fields: [
+          { objectTypeId: "0-1", name: "firstname",              value: document.getElementById("nombre").value.trim() },
+          { objectTypeId: "0-1", name: "email",                  value: document.getElementById("email").value.trim() },
+          { objectTypeId: "0-1", name: "phone",                  value: document.getElementById("telefono").value.trim() },
+          { objectTypeId: "0-1", name: "city",                   value: document.getElementById("ciudad").value.trim() },
+          { objectTypeId: "0-1", name: "company",                value: document.getElementById("institucion").value.trim() },
+          { objectTypeId: "0-1", name: "jobtitle",               value: document.getElementById("profesion").value },
+          { objectTypeId: "0-1", name: "registro_profesional",   value: document.getElementById("registro").value.trim() },
+          { objectTypeId: "0-1", name: "experiencia_lactancia",  value: document.getElementById("experiencia").value.trim() },
+          { objectTypeId: "0-1", name: "comentarios_programa",   value: document.getElementById("comentarios").value.trim() },
+        ],
+        context: {
+          pageUri: window.location.href,
+          pageName: document.title,
+        },
+        legalConsentOptions: {
+          consent: {
+            consentToProcess: true,
+            text: "Declaro que la información entregada es correcta y autorizo el tratamiento de mis datos para fines de evaluación, contacto y gestión del programa.",
+          }
+        }
+      };
+
+      const hutk = document.cookie.match(/hubspotutk=([^;]*)/);
+      if (hutk) payload.context.hutk = hutk[1];
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando…";
+
+      try {
+        const res = await fetch(HUBSPOT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || "Error en el envío");
+        }
+        form.reset();
+        showStatus("¡Tu inscripción fue enviada correctamente! Te contactaremos pronto por correo electrónico.", "success");
+        statusBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        console.error("Error HubSpot:", error);
+        showStatus("Hubo un problema al enviar tu inscripción. Intenta nuevamente o escríbenos a programa@nursicare.cl", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Enviar inscripción ' + SUBMIT_ICON;
+      }
+    });
+
+    /* =============================================
+       SCROLL ANIMATIONS
+       ============================================= */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.animate-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
